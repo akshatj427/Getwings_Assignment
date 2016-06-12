@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script
+src="http://maps.googleapis.com/maps/api/js">
+</script>
+
+<script>
+var lat=<?php
+if(isset($_GET['firstpar']) ){
+$a= $_GET['firstpar'];
+echo $a;
+}?>;
+var lon=<?php
+if(isset($_GET['secondpar']) ){
+$b= $_GET['secondpar'];
+echo $b;
+}?>;
+var x=new google.maps.LatLng(52.395715,4.888916);
+var stavanger=new google.maps.LatLng(lat,lon);
+var amsterdam=new google.maps.LatLng(52.395715,4.888916);
+var london=new google.maps.LatLng(51.508742,-0.120850);
+
+function initialize()
+{
+var mapProp = {
+  center:x,
+  zoom:4,
+  mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  
+var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+var myTrip=[stavanger,london];
+var flightPath=new google.maps.Polyline({
+  path:myTrip,
+  strokeColor:"#0000FF",
+  strokeOpacity:0.8,
+  strokeWeight:2
+  });
+
+var marker=new google.maps.Marker({
+  position:stavanger,
+  });
+
+marker.setMap(map);
+
+var infowindow = new google.maps.InfoWindow({
+  content:"user_location!".concat(lat,lon)
+  });
+
+google.maps.event.addListener(marker, 'click', function() {
+  infowindow.open(map,marker);
+  });
+
+
+flightPath.setMap(map);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+
+<body>
+<div id="googleMap" style="width:700px;height:600px;"></div>
+<a href="index6.html">back</a>
+</body>
+</html>

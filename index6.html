@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>TMPS00042</title>
+<link href="css/styles.css" rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
+
+
+<!--menu-->
+<link rel="stylesheet" href="css/superfish.css" media="screen">
+<script src="js/jquery-1.9.0.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.js"></script>
+<script>
+
+		// initialise plugins
+		jQuery(function(){
+			jQuery('#example').superfish({
+				//useClick: true
+			});
+		});
+
+		</script>
+</head>
+<body>
+<div class="header-wrap">
+  <div class="logo">
+    <h1>Getwings Articles</h1>
+  </div>
+  <div class="menu"> <img src="images/menu-left.png" alt="image"/>
+    	<ul class="sf-menu" id="example">
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+        <li><a href="index6.html">Home</a></li>
+         <li><a href="about.html">About</a></li>
+        <li> <a href="contact.html">Contact</a> </li>
+        <li><a href=""></a></li>
+        <li><a href=""></a></li>
+      </ul>
+    <img src="images/menu-right.png" alt="image"/> </div>
+</div>
+<!--header-wrap-->
+<div class="clear"></div>
+<div class="banner-wrap">
+  <div class="banner"> <img src="images/banner1.jpg" alt="banner" /> </div>
+</div>
+<?php
+
+$uri = 'http://54.175.194.45:8028/posts';
+    $reqPrefs['http']['method'] = 'GET';
+    $reqPrefs['http']['header'] = 'X-Auth-Token: 1f7c82a3fdb74580afe09186a9781e22';
+    $stream_context = stream_context_create($reqPrefs);
+    $response = file_get_contents($uri, false, $stream_context);
+
+
+    $data = json_decode($response);
+
+   for($j=0;$j<sizeof($data)-1;)
+   {
+   	//$a= $data[$j]->body;
+   	//$b= $data[$j]->title;
+   	//$index = $data[$j]->index;
+   	//echo "<br/>";
+   
+
+?>
+<!--banner-->
+<div class="page-wrap">
+  <div class="wrap">
+    <div class="box marRight40">
+      <div class="panel">
+        <div class="title">
+          <h1><?php echo "Article "." By ".$data[$j]->name->first." ".$data[$j]->name->last; ?></h1>
+          <?php $lat=$data[$j]->user_location->latitude;
+          $lon=$data[$j]->user_location->longitude;?>
+          <a href=<?php echo "maps2.html?firstpar=".$lat."&secondpar=".$lon;?>>Show Google Maps Location</a>
+        </div>
+        <div class="content">
+          <p><?php echo $data[$j]->title; ?></p>
+          <?php 
+          $a=$data[$j]->phone;
+          $b=$data[$j]->email;
+          $c=$data[$j]->id;
+          $d=$data[$j]->install_ts;
+          $str="stuff".$j;?>
+
+          <div class="button" id="click" onClick=<?php echo "toggleElementDisplay('".$str."')";?>><a>User Info</a></div>
+          <div id=<?php echo "stuff".$j;?> style="display:none">
+          <?php echo "phone: ".$a;
+          echo "<br/>";
+          echo "email: ".$b;
+          echo "<br/>";
+          echo "id: ".$c;
+          echo "<br/>";
+          echo "date: ".$d;
+          ?></div>
+		<script>
+		function toggleElementDisplay(elementID) {
+    		var element = document.getElementById(elementID),
+        		style = window.getComputedStyle(element),
+        		display = style.getPropertyValue("display");
+
+    		if (display == "block") {
+        		element.style.display = "none";
+    		} else {
+        		element.style.display = "block";
+    		}
+
+		}
+		</script>
+          <?php $j=$j+1?>
+        </div>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="panel">
+        <div class="title">
+          <h1><?php echo "Article "." By ".$data[$j]->name->first." ".$data[$j]->name->last; ?></h1>
+          <!--<h2><a href="maps2.html?email=58.983991&secondpar=5.734863">Save</a></h2>-->
+          <?php $lat=$data[$j]->user_location->latitude;
+          $lon=$data[$j]->user_location->longitude;?>
+          <a href=<?php echo "maps2.html?firstpar=".$lat."&secondpar=".$lon;?>>Show Google Maps Location</a>
+        </div>
+        <div class="content">
+          <p><?php echo $data[$j]->title; ?></p>
+          <?php 
+          $a=$data[$j]->phone;
+          $b=$data[$j]->email;
+          $c=$data[$j]->id;
+          $d=$data[$j]->install_ts;
+          $str="stuff".$j;?>
+
+          <div class="button" id="click" onClick=<?php echo "toggleElementDisplay('".$str."')";?>><a>User Info</a></div>
+          <div id=<?php echo "stuff".$j;?> style="display:none">
+          <?php echo "phone: ".$a;
+          echo "<br/>";
+          echo "email: ".$b;
+          echo "<br/>";
+          echo "id: ".$c;
+          echo "<br/>";
+          echo "date: ".$d;
+          ?></div>
+    <script>
+    function toggleElementDisplay(elementID) {
+        var element = document.getElementById(elementID),
+            style = window.getComputedStyle(element),
+            display = style.getPropertyValue("display");
+
+        if (display == "block") {
+            element.style.display = "none";
+        } else {
+            element.style.display = "block";
+        }
+
+    }
+    </script>
+          <?php $j=$j+1?>
+        </div>
+      </div>
+    </div>
+
+<?php } ?>
+<!-- added article-->
+
+
+<div class="box marRight40">
+      <div class="panel">
+        <div class="title">
+          <?php 
+          $firstname="";
+          $lastname="";
+          $article="";
+          if(isset($_GET["firstname"]))
+            {
+              $firstname=$_GET['firstname'];
+            }
+            if(isset($_GET["lastname"]))
+            {
+              $lastname=$_GET['lastname'];
+            }
+            if(isset($_GET["article"]))
+            {
+              $article=$_GET['article'];
+            }
+            ?>
+            <h2>Added article will display here</h2>
+          <h1><?php echo "Article "." By ".$firstname." ".$lastname; ?></h1>
+          <!--<h2>Donec quis dui at dolor tempor interdum</h2>-->
+        </div>
+        <div class="content">
+          <p><?php echo $article; ?></p>
+          <!--<div class="button"><a href="#">More</a></div>-->
+        </div>
+      </div>
+    </div>
+
+</div>
+<!--wrap ends-->
+<!--panel-end-->
+<div class="enquiry-wrap">
+    <div class="title">
+      <h1> Add Article</h1>
+    </div>
+    <div class="enquiry-form">
+      <form method="get" action="">
+        <label>
+          <h1>First name:</h1>
+        <input type="text" class="input_text" name="firstname" id="firstname"/>
+        </label>
+        <label>
+          <h1>Last name:</h1>
+        <input type="text" class="input_text" name="lastname" id="lastname"/>
+        </label>
+        <label>
+          <h1>Article Body:</h1>
+        <textarea class="message" name="article" id="article"></textarea>
+        </label>
+        <input type="submit" class="button" name="submit" value="Submit" />
+      </form>
+    </div>
+  </div>
+</div>
+<!--page-wrap-end-->
+
+<!-- endddddddddddddddddd -->
+<!--footer-wrap-->
+<div class="clear"></div>
+<div class="copyright-wrap">
+  <div class="copyright">
+    <div class="content">
+      <p>© 2012 All Rights Reserved  | <a href="#" class="link">Privacy Policy</a>&nbsp;&nbsp;
+        Designed by :<p> Akshat Jain</p>&nbsp;&nbsp;
+        
+    </div>
+  </div>
+</div>
+    </body>
+    </html>
